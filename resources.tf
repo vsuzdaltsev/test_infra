@@ -33,9 +33,42 @@ resource "aws_kinesis_stream" "PROJECT_test_stream" {
 
 resource "aws_s3_bucket" "PROJECT-test" {
   bucket = "PROJECT-test"
-  acl    = "private"
+  acl = "public-read"
 
   tags = merge(map("Name", "PROJECT_test_bucket"), var.default_tags)
+}
+
+resource "aws_s3_bucket_policy" "yaa-test-bucket-policy" {
+  bucket = "${aws_s3_bucket.PROJECT-test.id}"
+
+  policy = <<EOF
+{
+    "Version": "2008-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadForGetBucketObjects",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "*"
+            },
+            "Action": "s3:GetObject",
+            "Resource": "${aws_s3_bucket.PROJECT-test.arn}/*"
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Principal": {
+               "Service": "ec2.amazonaws.com"
+            },
+            "Action": "s3:*",
+            "Resource": [
+                "${aws_s3_bucket.PROJECT-test.arn}",
+                "${aws_s3_bucket.PROJECT-test.arn}/*"
+            ]
+        }
+    ]
+}
+EOF
 }
 
 resource "aws_iam_role" "PROJECT_test_role" {
