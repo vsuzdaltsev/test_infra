@@ -1,6 +1,6 @@
 resource "aws_key_pair" "example-key-pair" {
   key_name   = "${var.identity}-key"
-  public_key = file("${var.key_path}")
+  public_key = file(var.key_path)
 }
 
 resource "aws_instance" "server" {
@@ -19,7 +19,7 @@ resource "aws_instance" "server" {
 }
 
 resource "aws_kinesis_stream" "PROJECT_test_stream" {
-  name             = "PROJECT-kinesis-test"
+  name             = "PROJECT_test_kinesis"
   shard_count      = 1
   retention_period = 48
 
@@ -28,7 +28,7 @@ resource "aws_kinesis_stream" "PROJECT_test_stream" {
     "OutgoingBytes",
   ]
 
-  tags = merge(map("Name", "PROJECT-kinesis-test"), var.default_tags)
+  tags = merge(map("Name", "PROJECT_test_kinesis"), var.default_tags)
 }
 
 resource "aws_s3_bucket" "PROJECT-test" {

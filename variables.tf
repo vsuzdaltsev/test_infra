@@ -41,6 +41,6 @@ variable "identity" {
 variable "default_tags" {
   type = "map"
   default = {
-    "owner" : "<email>",
+    "owner" : "email",
   }
 }
