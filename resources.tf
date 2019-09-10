@@ -39,7 +39,7 @@ resource "aws_s3_bucket" "PROJECT-test" {
 }
 
 resource "aws_s3_bucket_policy" "yaa-test-bucket-policy" {
-  bucket = "${aws_s3_bucket.PROJECT-test.id}"
+  bucket = aws_s3_bucket.PROJECT-test.id
 
   policy = <<EOF
 {
