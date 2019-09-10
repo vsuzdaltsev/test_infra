@@ -2,7 +2,7 @@ resource "aws_vpc" "PROJECT_vpc" {
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
 
-  tags = merge(map("Name", "Ischenko vpc"), var.default_tags)
+  tags = merge(map("Name", "PROJECT vpc"), var.default_tags)
 }
 
 resource "aws_subnet" "public-subnet" {
