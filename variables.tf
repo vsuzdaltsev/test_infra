@@ -35,7 +35,7 @@ variable "key_path" {
 
 variable "identity" {
   type    = "string"
-  default = "example"
+  default = "PROJECT"
 }
 
 variable "default_tags" {
